@@ -1,34 +1,73 @@
-import React from "react";
+import React, { useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const About = () => {
+  
+
+const container = useRef();
+
+useGSAP(() => {
+
+  gsap.from(".vyra-content", {
+    x: 100,
+    opacity: 0,
+    duration: 1,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: ".vyra-content",
+      start: "top 80%",
+      toggleActions: "play reverse play reverse",
+    },
+  });
+
+  gsap.from(".vyra-mask", {
+    x: -100,
+    opacity: 0,
+    duration: 1,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: ".vyra-mask",
+      start: "top 80%",
+      toggleActions: "play reverse play reverse",
+    },
+  });
+
+}, { scope: container });
+
+
+
+
   return (
     <div
-      className="relative h-screen w-full  flex items-center justify-center bg-cover bg-center"
+      ref={container}
+      className="relative h-screen w-full flex items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: "url('/home_mask_2.jpeg')" }}
     >
-      {/* dark overlay */}
       <div className="absolute inset-0 bg-gray-900/70 backdrop-blur-md"></div>
 
-
       <div className="relative z-10 flex flex-col md:flex-row items-center w-full max-w-7xl px-8 gap-10">
-        
-          {/* VYRA masked text */}
-          <div className="md:w-[1000px] md:h-[1000px] w-[500px] h-[200px] flex items-center justify-center">
-            <h1
-              className="text-[10rem] md:text-[12rem] leading-none select-none text-transparent bg-clip-text"
-              style={{
-                fontFamily: "Abril Fatface",
-                backgroundImage: "url('/skin.jpeg')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            >
-              VYRA
-            </h1>
-          </div>
+
+        {/* VYRA masked text */}
+        <div className="md:w-[1000px] md:h-[1000px] w-[500px] h-[200px] flex items-center justify-center">
+          <h1
+            className="vyra-mask text-[10rem] md:text-[12rem] leading-none select-none text-transparent bg-clip-text"
+            style={{
+              fontFamily: "Abril Fatface",
+              backgroundImage: "url('/skin.jpeg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            VYRA
+          </h1>
+        </div>
 
         {/* Right content */}
-        <div className="flex flex-col gap-6 max-w-xl text-gray-300">
+        <div className="vyra-content flex flex-col gap-6 max-w-xl text-gray-300">
           <h1 className="text-5xl font-black text-gray-200">VYRA</h1>
 
           <p className="text-xl text-gray-400 leading-relaxed">

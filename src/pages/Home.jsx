@@ -1,7 +1,30 @@
 import React from "react";
 import Carousel from "../components/Carousel";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const Home = () => {
+
+  useGSAP(() => {
+
+ 
+
+  gsap.from(".title", {
+    y: 200,
+    opacity: 0,
+    duration: 1,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: ".title",
+      start: "top 80%",
+      toggleActions: "play reverse play reverse",
+    },
+  });
+
+});
   return (
     <div
       className="relative h-screen w-full pt-20 overflow-hidden bg-cover bg-center"
@@ -27,7 +50,7 @@ export const Home = () => {
         <div className="md:w-full md:h-full w-auto h-3/4 flex flex-col items-center justify-center">
 
           {/* VYRA masked text */}
-          <div className="md:w-[1000px] md:h-[1000px] w-[500px] h-[500px] flex items-center justify-center">
+          <div className="title md:w-[1000px] md:h-[1000px] w-[500px] h-[500px] flex items-center justify-center">
             <h1
               className="text-[10rem] md:text-[15rem] leading-none drop-shadow-2xl select-none text-transparent bg-clip-text"
               style={{
@@ -44,7 +67,7 @@ export const Home = () => {
           {/* Tagline + Carousel */}
           <div className="flex flex-col relative items-center justify-center">
             <div className="relative flex justify-between rounded-t-lg w-[460px] h-[200px] text-gray-300">
-              <p className="relative text-gray-400 md:text-left text-center md:ml-14 w-full md:text-2xl text-xl -top-10 md:-top-18">
+              <p className="relative text-gray-400  text-center md:ml-14 w-full md:text-3xl text-xl -top-10 md:-top-25">
                 Wear what speaks louder than words.
               </p>
             </div>
