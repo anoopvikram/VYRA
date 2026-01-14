@@ -1,18 +1,20 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   return (
     <nav className='absolute z-60 w-full bg-transparent py-1 '>
         <div className='flex  justify-between items-center w-full mx-auto p-2 text-gray-300  '>
           <div className='relative left-2 flex justify-center items-center gap-0'>
-            <img src='./logo.png' className='w-15 rounded-xl'/>
-            
+            <Link to="/" className="relative left-2 flex items-center">
+              <img src="./logo.png" alt="Logo" className="w-15 rounded-xl" />
+            </Link>
           </div>
             
               
             <ul className='flex gap-6 text-gray-300 text-lg'>
               <li className='cursor-pointer hover:text-white transition'>About</li>
-              <li className='cursor-pointer hover:text-white transition'>Collections</li>
+              <li className='cursor-pointer hover:text-white transition'><Link to="/collections">Collections</Link></li>
               <li className='cursor-pointer hover:text-white transition'>Contact</li>
             </ul>
 

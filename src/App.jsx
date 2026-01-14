@@ -1,18 +1,37 @@
-import React from 'react'
-import { Home } from './pages/Home'
-import { Navbar } from './components/Navbar'
-import { About } from './pages/About'
-import Products from './pages/Products'
-import { Footer } from './components/Footer'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
+
+import { Home } from "./pages/Home";
+import { About } from "./pages/About";
+import Products from "./pages/Products";
+import Collections from "./pages/Collections";
 
 export const App = () => {
   return (
-    <div>
-      <Navbar/>
-      <Home/>
-      <Products/>
-      <About/>
-      <Footer/>
-    </div>
-  )
-}
+    <Router>
+      <Navbar />
+
+      <Routes>
+        {/* Home = scrollable single page */}
+        <Route
+          path="/"
+          element={
+            <>
+              <Home />
+              <Products />
+              <About />
+            </>
+          }
+        />
+
+        {/* Collections page */}
+        <Route path="/collections" element={<Collections />} />
+      </Routes>
+
+      <Footer />
+    </Router>
+  );
+};
