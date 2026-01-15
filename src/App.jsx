@@ -8,6 +8,7 @@ import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import Products from "./pages/Products";
 import Collections from "./pages/Collections";
+import Cart from "./pages/Cart";
 
 export const App = () => {
   return (
@@ -29,6 +30,7 @@ export const App = () => {
 
         {/* Collections page */}
         <Route path="/collections" element={<Collections />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
 
       <Footer />

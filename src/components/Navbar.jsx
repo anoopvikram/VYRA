@@ -15,6 +15,7 @@ export const Navbar = () => {
             <ul className='flex gap-6 text-gray-300 text-lg'>
               <li className='cursor-pointer hover:text-white transition'>About</li>
               <li className='cursor-pointer hover:text-white transition'><Link to="/collections">Collections</Link></li>
+              <li className='cursor-pointer hover:text-white transition'><Link to="/cart">Cart</Link></li>
               <li className='cursor-pointer hover:text-white transition'>Contact</li>
             </ul>
 

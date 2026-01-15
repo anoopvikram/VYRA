@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import ProductCard from "../components/ProductCard";
+import { useCart } from "../context/CartContext";
+import products from "../data/Products";
 
-const sampleProducts = [
-  { id: 1, image: './tshirt-1.png', name: "Classic Tee", price: 499 },
-  { id: 2, image: './tshirt-2.png', name: "Oversized Tee", price: 799 },
-  { id: 3, image: './tshirt-3.png', name: "Pocket Tee", price: 649 },
-  { id: 4, image: './tshirt-4.png', name: "V‑Neck Tee", price: 559 },
-  { id: 5, image: './tshirt-5.png', name: "Long Sleeve Tee", price: 899 },
-  
-];
 
 export default function Products() {
   const [likedIds, setLikedIds] = useState(() => new Set());
+  const { addToCart } = useCart();
+
 
   function toggleLike(id) {
     setLikedIds((prev) => {
@@ -27,7 +23,7 @@ export default function Products() {
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-extrabold">Featured Collections</h1>
           <div className="rounded-full bg-black/30 px-3 py-1 text-sm font-medium">
-            Showing {sampleProducts.length} items
+            Showing {products.length} items
           </div>
         </div>
 
@@ -35,8 +31,16 @@ export default function Products() {
       </header>
 
       <section className="mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {sampleProducts.map((p) => (
-          <ProductCard key={p.id} product={p} liked={likedIds.has(p.id)} onToggleLike={toggleLike} />
+        {products.map((p) => (
+          <ProductCard
+            key={p.id}
+            product={p}
+            liked={likedIds.has(p.id)}
+            onToggleLike={toggleLike}
+            onAdd={addToCart}
+          />
+
+
         ))}
       </section>
       <div className="mx-auto max-w-6xl mt-8 flex justify-center">

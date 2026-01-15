@@ -1,21 +1,20 @@
 import React, { useMemo, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { useCart } from "../context/CartContext";
+import products from "../data/Products";
 
 
-const products = [
-  { id: 1, image: "./tshirt-1.png", name: "Classic Tee", price: 499, category: "men" },
-  { id: 2, image: "./tshirt-2.png", name: "Oversized Tee", price: 799, category: "women" },
-  { id: 3, image: "./tshirt-3.png", name: "Pocket Tee", price: 649, category: "men" },
-  { id: 4, image: "./tshirt-4.png", name: "V-Neck Tee", price: 559, category: "kids" },
-  { id: 5, image: "./tshirt-5.png", name: "Long Sleeve Tee", price: 899, category: "women" },
-];
 
 export default function Collections() {
   const [likedIds, setLikedIds] = useState(new Set());
   const [activeCategory, setActiveCategory] = useState("all");
   const [sortOrder, setSortOrder] = useState("default");
   const [sortOpen, setSortOpen] = useState(false);
+
+
+  const { addToCart } = useCart();
+
 
   const toggleLike = (id) => {
     setLikedIds((prev) => {
@@ -131,6 +130,7 @@ export default function Collections() {
             product={product}
             liked={likedIds.has(product.id)}
             onToggleLike={toggleLike}
+            onAdd={addToCart}
           />
         ))}
       </section>

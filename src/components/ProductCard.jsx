@@ -1,7 +1,13 @@
 import React from "react";
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
+import { useCart } from "../context/CartContext";
 
-export default function ProductCard({ product, liked, onToggleLike }) {
+
+export default function ProductCard({ product, liked, onToggleLike, onAdd }) {
+  const { isInCart, toggleCartItem } = useCart();
+
+  const added = isInCart(product.id);
+
   return (
     <div className="relative w-full max-w-xs rounded-2xl border border-white/6 bg-white/5 p-4 backdrop-blur-sm shadow-lg transition-transform hover:scale-105">
       <button
@@ -27,9 +33,20 @@ export default function ProductCard({ product, liked, onToggleLike }) {
 
         <div className="mt-2 flex items-center justify-between">
           <span className="text-lg font-bold text-white">₹{product.price}</span>
-          <button className="rounded-full border border-white/10 px-3 py-1 text-sm text-white/90 hover:bg-white/5">
-            Add
-          </button>
+            <button
+              onClick={() => toggleCartItem(product)}
+              className={`rounded-full px-3 py-1 text-sm font-medium transition
+                ${
+                  added
+                    ? "bg-white text-black"
+                    : "border border-white/10 text-white/90 hover:bg-white/5"
+                }`}
+            >
+              {added ? "Added" : "Add"}
+            </button>
+
+
+
         </div>
       </div>
     </div>
