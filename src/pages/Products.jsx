@@ -30,7 +30,8 @@ export default function Products() {
         <p className="mt-2 text-sm text-white/80">Choose your style.</p>
       </header>
 
-      <section className="mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <section className="mx-auto mt-8 mb-16 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+
         {products.map((p) => (
           <ProductCard
             key={p.id}
@@ -46,7 +47,7 @@ export default function Products() {
       <div className="mx-auto max-w-6xl mt-8 flex justify-center">
   <button
     className="px-6 py-2 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20"
-    onClick={() => window.location.href = "/collections"}
+    onClick={() => navigate("/collections")}
   >
     Show more
   </button>

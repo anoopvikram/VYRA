@@ -12,7 +12,7 @@ export const Navbar = () => {
           </div>
             
               
-            <ul className='flex gap-6 text-gray-300 text-lg'>
+            <ul className='flex gap-6 text-gray-300 md:text-lg text-sm'>
               <li className='cursor-pointer hover:text-white transition'>About</li>
               <li className='cursor-pointer hover:text-white transition'><Link to="/collections">Collections</Link></li>
               <li className='cursor-pointer hover:text-white transition'><Link to="/cart">Cart</Link></li>

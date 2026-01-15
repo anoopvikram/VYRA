@@ -3,10 +3,14 @@ import Carousel from "../components/Carousel";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useNavigate } from "react-router-dom";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const Home = () => {
+  const navigate = useNavigate();
+
 
   useGSAP(() => {
 
@@ -34,7 +38,8 @@ export const Home = () => {
       <div className="absolute inset-0 bg-gray-900/65 backdrop-blur-xs z-0"></div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-row w-full h-full">
+      <div className="relative z-10 flex flex-col lg:flex-row w-full h-full overflow-hidden">
+
 
         {/* Left text */}
         <div className="lg:flex hidden flex-col gap-4">
@@ -52,7 +57,7 @@ export const Home = () => {
           {/* VYRA masked text */}
           <div className="title md:w-[1000px] md:h-[1000px] w-[500px] h-[500px] flex items-center justify-center">
             <h1
-              className="text-[10rem] md:text-[15rem] leading-none drop-shadow-2xl select-none text-transparent bg-clip-text"
+              className="text-[7rem] md:text-[15rem] leading-none drop-shadow-2xl select-none text-transparent bg-clip-text"
               style={{
                 fontFamily: "Abril Fatface",
                 backgroundImage: "url('/skin.jpeg')",
@@ -67,7 +72,7 @@ export const Home = () => {
           {/* Tagline + Carousel */}
           <div className="flex flex-col relative items-center justify-center">
             <div className="relative flex justify-between rounded-t-lg w-[460px] h-[200px] text-gray-300">
-              <p className="relative text-gray-400  text-center md:ml-14 w-full md:text-3xl text-xl -top-10 md:-top-25">
+              <p className="relative text-gray-400  text-center md:ml-14 w-full md:text-3xl text-md -top-25 ">
                 Wear what speaks louder than words.
               </p>
             </div>
@@ -81,9 +86,13 @@ export const Home = () => {
               <p className="text-xl text-center font-black text-gray-400">
                 Timeless pieces for the moments that matter.
               </p>
-              <button className="py-1 px-2 w-fit mx-auto top-5 rounded-full m-2 text-gray-300 text-xl bg-gray-700 border-2 border-gray-600 hover:bg-gray-600 transition">
+              <button
+                onClick={() => navigate("/collections")}
+                className="py-1 px-2 w-fit mx-auto top-5 rounded-full m-2 text-gray-300 text-xl bg-gray-700 border-2 border-gray-600 hover:bg-gray-600 transition"
+              >
                 Shop Now
               </button>
+
             </div>
           </div>
         </div>
