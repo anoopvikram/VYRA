@@ -72,7 +72,7 @@ export const Home = () => {
           {/* Tagline + Carousel */}
           <div className="flex flex-col relative items-center justify-center">
             <div className="relative flex justify-between rounded-t-lg w-[460px] h-[200px] text-gray-300">
-              <p className="relative text-gray-400  text-center md:ml-14 w-full md:text-3xl text-md -top-25 ">
+              <p className="relative text-gray-400  text-center md:ml-14 w-full md:text-3xl text-md -top-35 md:-top-25">
                 Wear what speaks louder than words.
               </p>
             </div>
@@ -82,13 +82,13 @@ export const Home = () => {
             </div>
 
             {/* Mobile CTA */}
-            <div className="md:hidden flex flex-col">
-              <p className="text-xl text-center font-black text-gray-400">
-                Timeless pieces for the moments that matter.
+            <div className="md:hidden absolute w-4/5 flex flex-col">
+              <p className="text-sm text-center font-normal text-gray-400">
+                VYRA is not just a name stitched onto fabric, it is an attitude shaped by movement, ambition, and quiet confidence. Every piece is designed for people who live between moments, who understand that style is not about being loud but about being unmistakable.
               </p>
               <button
                 onClick={() => navigate("/collections")}
-                className="py-1 px-2 w-fit mx-auto top-5 rounded-full m-2 text-gray-300 text-xl bg-gray-700 border-2 border-gray-600 hover:bg-gray-600 transition"
+                className="py-1 px-2 w-fit mx-auto top-5 mt-10 rounded-full m-2 text-gray-300 text-xl bg-gray-700 border-2 border-gray-600 hover:bg-gray-600 transition"
               >
                 Shop Now
               </button>

@@ -31,6 +31,7 @@ export const App = () => {
         {/* Collections page */}
         <Route path="/collections" element={<Collections />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/about" element={<About />} />
       </Routes>
 
       <Footer />

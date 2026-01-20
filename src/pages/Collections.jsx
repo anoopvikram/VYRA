@@ -123,7 +123,7 @@ export default function Collections() {
       </header>
 
       {/* Products */}
-      <section className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <section className="mx-auto mt-10 grid max-w-6xl grid-cols-2 gap-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
         {filteredProducts.map((product) => (
           <ProductCard
             key={product.id}

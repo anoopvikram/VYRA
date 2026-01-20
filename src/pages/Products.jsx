@@ -30,7 +30,7 @@ export default function Products() {
         <p className="mt-2 text-sm text-white/80">Choose your style.</p>
       </header>
 
-      <section className="mx-auto mt-8 mb-16 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <section className="mx-auto mt-8 mb-16 grid max-w-6xl grid-cols-2 gap-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
 
         {products.map((p) => (
           <ProductCard
