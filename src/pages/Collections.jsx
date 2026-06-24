@@ -1,10 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { useCart } from "../context/CartContext";
-import products from "../data/Products";
-
-
 
 export default function Collections() {
   const [likedIds, setLikedIds] = useState(new Set());
@@ -12,9 +8,9 @@ export default function Collections() {
   const [sortOrder, setSortOrder] = useState("default");
   const [sortOpen, setSortOpen] = useState(false);
 
-
-  const { addToCart } = useCart();
-
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const toggleLike = (id) => {
     setLikedIds((prev) => {
@@ -23,6 +19,37 @@ export default function Collections() {
       return next;
     });
   };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/products"
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+
+        const data = await response.json();
+
+        const formattedProducts = data.map((product) => ({
+          ...product,
+          image: product.image_url,
+          price: Number(product.price),
+        }));
+
+        setProducts(formattedProducts);
+      } catch (error) {
+        console.error(error);
+        setError("Failed to load products");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const filteredProducts = useMemo(() => {
     let list = [...products];
@@ -40,11 +67,26 @@ export default function Collections() {
     }
 
     return list;
-  }, [activeCategory, sortOrder]);
+  }, [products, activeCategory, sortOrder]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-white">
+        Loading products...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-red-400">
+        {error}
+      </div>
+    );
+  }
 
   return (
     <main className="min-h-screen w-full bg-gradient-to-b pt-25 xl:pt-10 from-gray-900 to-gray-800 p-8 text-white">
-      {/* Header */}
       <header className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -61,9 +103,7 @@ export default function Collections() {
           </div>
         </div>
 
-        {/* Filters */}
         <div className="mt-6 flex flex-wrap items-center gap-4">
-          {/* Category */}
           <div className="flex gap-2">
             {["all", "men", "women", "kids"].map((cat) => (
               <button
@@ -81,48 +121,46 @@ export default function Collections() {
             ))}
           </div>
 
-            <div className="relative">
+          <div className="relative">
             <button
-                onClick={() => setSortOpen((v) => !v)}
-                className="flex items-center gap-2 rounded-full bg-black/30 px-4 py-2 text-sm border border-white/20"
+              onClick={() => setSortOpen((v) => !v)}
+              className="flex items-center gap-2 rounded-full bg-black/30 px-4 py-2 text-sm border border-white/20"
             >
-                Sort by price
-                <MdKeyboardArrowDown
+              Sort by price
+              <MdKeyboardArrowDown
                 className={`text-lg transition-transform duration-200 ${
-                    sortOpen ? "rotate-180" : "rotate-0"
+                  sortOpen ? "rotate-180" : "rotate-0"
                 }`}
-                />
+              />
             </button>
 
             {sortOpen && (
-                <div className="absolute right-0 mt-2 w-44 rounded-xl bg-gray-900 border border-white/10 overflow-hidden z-20">
+              <div className="absolute right-0 mt-2 w-44 rounded-xl bg-gray-900 border border-white/10 overflow-hidden z-20">
                 <button
-                    onClick={() => {
+                  onClick={() => {
                     setSortOrder("low-high");
                     setSortOpen(false);
-                    }}
-                    className="w-full px-4 py-2 text-left text-sm hover:bg-white/10"
+                  }}
+                  className="w-full px-4 py-2 text-left text-sm hover:bg-white/10"
                 >
-                    Price: Low → High
+                  Price: Low → High
                 </button>
 
                 <button
-                    onClick={() => {
+                  onClick={() => {
                     setSortOrder("high-low");
                     setSortOpen(false);
-                    }}
-                    className="w-full px-4 py-2 text-left text-sm hover:bg-white/10"
+                  }}
+                  className="w-full px-4 py-2 text-left text-sm hover:bg-white/10"
                 >
-                    Price: High → Low
+                  Price: High → Low
                 </button>
-                </div>
+              </div>
             )}
-            </div>
-
+          </div>
         </div>
       </header>
 
-      {/* Products */}
       <section className="mx-auto mt-10 grid max-w-6xl grid-cols-2 gap-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
         {filteredProducts.map((product) => (
           <ProductCard
@@ -130,7 +168,6 @@ export default function Collections() {
             product={product}
             liked={likedIds.has(product.id)}
             onToggleLike={toggleLike}
-            onAdd={addToCart}
           />
         ))}
       </section>

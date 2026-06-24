@@ -4,18 +4,16 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useNavigate } from "react-router-dom";
-
+import { useEffect, useState } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const Home = () => {
   const navigate = useNavigate();
-
+  const [newArrival, setNewArrival] = useState(null);
+  const [bestSeller, setBestSeller] = useState(null);
 
   useGSAP(() => {
-
- 
-
   gsap.from(".title", {
     y: 200,
     opacity: 0,
@@ -29,6 +27,27 @@ export const Home = () => {
   });
 
 });
+
+useEffect(() => {
+  const fetchProducts = async () => {
+    try {
+      const [newArrivalRes, bestSellerRes] = await Promise.all([
+        fetch("http://localhost:5000/api/products/new-arrivals"),
+        fetch("http://localhost:5000/api/products/best-sellers"),
+      ]);
+
+      const newArrivalData = await newArrivalRes.json();
+      const bestSellerData = await bestSellerRes.json();
+
+      setNewArrival(newArrivalData[0]);
+      setBestSeller(bestSellerData[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchProducts();
+}, []);
   return (
     <div
       className="relative h-screen w-full pt-20 overflow-hidden bg-cover bg-center"
@@ -105,14 +124,26 @@ export const Home = () => {
               <p className="absolute rounded-full -top-3 left-1/2 -translate-x-1/2 bg-gray-900 px-2 text-white text-sm">
                 New Arrivals
               </p>
-              <img src="/tshirt-2.png" className="w-full h-full object-cover rounded-xl" />
+              {newArrival && (
+                <img
+                  src={newArrival.image_url}
+                  className="w-full h-full object-cover rounded-xl"
+                  alt={newArrival.name}
+                />
+              )}
             </div>
 
             <div className="relative w-[200px] h-[200px] bg-gray-800 border-gray-300 border-2 rounded-xl">
               <p className="absolute rounded-full -top-3 left-1/2 -translate-x-1/2 bg-gray-900 px-2 text-white text-sm">
                 Best Sellers
               </p>
-              <img src="/tshirt-1.png" className="w-full h-full object-cover rounded-xl" />
+              {bestSeller && (
+                <img
+                  src={bestSeller.image_url}
+                  className="w-full h-full object-cover rounded-xl"
+                  alt={bestSeller.name}
+                />
+              )}
             </div>
 
           </div>

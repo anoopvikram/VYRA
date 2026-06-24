@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
-import { useCart } from "../context/CartContext";
-import products from "../data/Products";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Products() {
+  const navigate = useNavigate();
+
   const [likedIds, setLikedIds] = useState(() => new Set());
-  const { addToCart } = useCart();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
 
   function toggleLike(id) {
@@ -16,6 +18,40 @@ export default function Products() {
       return next;
     });
   }
+
+  useEffect(() => {
+  const fetchFeaturedProducts = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/products/featured"
+      );
+
+      const data = await response.json();
+
+      const formattedProducts = data.map(product => ({
+        ...product,
+        image: product.image_url,
+        price: Number(product.price),
+      }));
+
+      setProducts(formattedProducts);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchFeaturedProducts();
+}, []);
+
+if (loading) {
+  return (
+    <div className="min-h-screen flex items-center justify-center text-white">
+      Loading...
+    </div>
+  );
+}
 
   return (
     <main className="h-fit w-full bg-gradient-to-b from-gray-900 to-gray-800 p-8 text-white">
@@ -38,10 +74,7 @@ export default function Products() {
             product={p}
             liked={likedIds.has(p.id)}
             onToggleLike={toggleLike}
-            onAdd={addToCart}
           />
-
-
         ))}
       </section>
       <div className="mx-auto max-w-6xl mt-8 flex justify-center">

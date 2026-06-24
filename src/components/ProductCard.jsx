@@ -2,8 +2,7 @@ import React from "react";
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { useCart } from "../context/CartContext";
 
-
-export default function ProductCard({ product, liked, onToggleLike, onAdd }) {
+export default function ProductCard({ product, liked, onToggleLike }) {
   const { isInCart, toggleCartItem } = useCart();
 
   const added = isInCart(product.id);
@@ -18,7 +17,6 @@ export default function ProductCard({ product, liked, onToggleLike, onAdd }) {
         {liked ? <IoMdHeart /> : <IoMdHeartEmpty />}
       </button>
 
-      {/* Image slot instead of icon */}
       <div className="flex h-54 items-center justify-center rounded-xl bg-gray-400/30 overflow-hidden">
         <img
           src={product.image}
@@ -28,25 +26,29 @@ export default function ProductCard({ product, liked, onToggleLike, onAdd }) {
       </div>
 
       <div className="mt-4 flex flex-col gap-2">
-        <h3 className="text-lg font-semibold text-white">{product.name}</h3>
-        <p className="text-sm text-gray-100/80">Soft cotton • unisex</p>
+        <h3 className="text-lg font-semibold text-white">
+          {product.name}
+        </h3>
+
+        <p className="text-sm text-gray-100/80">
+          Soft cotton • unisex
+        </p>
 
         <div className="mt-2 flex items-center justify-between">
-          <span className="text-lg font-bold text-white">₹{product.price}</span>
-            <button
-              onClick={() => toggleCartItem(product)}
-              className={`rounded-full px-3 py-1 text-sm font-medium transition
-                ${
-                  added
-                    ? "bg-white text-black"
-                    : "border border-white/10 text-white/90 hover:bg-white/5"
-                }`}
-            >
-              {added ? "Added" : "Add"}
-            </button>
+          <span className="text-lg font-bold text-white">
+            ₹{product.price}
+          </span>
 
-
-
+          <button
+            onClick={() => toggleCartItem(product)}
+            className={`rounded-full px-3 py-1 text-sm font-medium transition ${
+              added
+                ? "bg-white text-black"
+                : "border border-white/10 text-white/90 hover:bg-white/5"
+            }`}
+          >
+            {added ? "Added" : "Add"}
+          </button>
         </div>
       </div>
     </div>
