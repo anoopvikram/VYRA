@@ -2,7 +2,6 @@ import { API_URL } from "../config/api";
 import React, { useMemo, useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { API_URL } from "../config/api";
 
 export default function Collections() {
   const [likedIds, setLikedIds] = useState(new Set());
