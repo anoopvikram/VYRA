@@ -1,4 +1,5 @@
 import React from "react";
+import { API_URL } from "../config/api";
 import Carousel from "../components/Carousel";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -32,8 +33,8 @@ useEffect(() => {
   const fetchProducts = async () => {
     try {
       const [newArrivalRes, bestSellerRes] = await Promise.all([
-        fetch("http://localhost:5000/api/products/new-arrivals"),
-        fetch("http://localhost:5000/api/products/best-sellers"),
+        fetch(`${API_URL}/api/products/new-arrivals`),
+        fetch(`${API_URL}/api/products/best-sellers`),
       ]);
 
       const newArrivalData = await newArrivalRes.json();

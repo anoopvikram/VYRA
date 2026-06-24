@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { API_URL } from "../config/api";
 import ProductCard from "../components/ProductCard";
 import { useNavigate } from "react-router-dom";
 
@@ -22,9 +23,7 @@ export default function Products() {
   useEffect(() => {
   const fetchFeaturedProducts = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/products/featured"
-      );
+      const response = await fetch(`${API_URL}/api/products/featured`);
 
       const data = await response.json();
 

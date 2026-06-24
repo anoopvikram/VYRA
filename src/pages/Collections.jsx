@@ -1,6 +1,8 @@
+import { API_URL } from "../config/api";
 import React, { useMemo, useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { API_URL } from "../config/api";
 
 export default function Collections() {
   const [likedIds, setLikedIds] = useState(new Set());
@@ -23,9 +25,7 @@ export default function Collections() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/products"
-        );
+        const response = await fetch(`${API_URL}/api/products`);;
 
         if (!response.ok) {
           throw new Error("Failed to fetch products");
