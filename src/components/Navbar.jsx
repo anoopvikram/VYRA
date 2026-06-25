@@ -21,7 +21,7 @@ export const Navbar = () => {
       <div className="flex justify-between items-center w-full mx-auto p-2 text-gray-300">
 
         <Link to="/" className="flex items-center">
-          <img src="./logo.png" alt="Logo" className="w-15 rounded-xl" />
+          <img src="/logo.png" alt="Logo" className="w-15 rounded-xl" />
         </Link>
 
         <ul className="flex gap-6 md:text-lg text-sm">

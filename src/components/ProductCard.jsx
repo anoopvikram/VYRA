@@ -1,18 +1,29 @@
 import React from "react";
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductCard({ product, liked, onToggleLike }) {
   const { isInCart, toggleCartItem } = useCart();
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate(`/product/${product.id}`);
+  };
 
   const added = isInCart(product.id);
 
   return (
-    <div className="relative w-full max-w-xs rounded-2xl border border-white/6 bg-white/5 p-4 backdrop-blur-sm shadow-lg transition-transform hover:scale-105">
+    <div 
+      onClick={handleNavigate}
+      className="relative w-full max-w-xs cursor-pointer rounded-2xl border border-white/6 bg-white/5 p-4 backdrop-blur-sm shadow-lg transition-transform hover:scale-105">
       <button
         aria-pressed={liked}
-        onClick={() => onToggleLike(product.id)}
-        className="absolute right-4 top-4 z-10 rounded-full p-2 text-xl leading-none transition-transform hover:scale-110"
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggleLike(product.id);
+        }}
+        className="absolute right-4 top-4 z-10 cursor-pointer rounded-full p-2 text-xl leading-none transition-transform hover:scale-110"
       >
         {liked ? <IoMdHeart /> : <IoMdHeartEmpty />}
       </button>
@@ -40,8 +51,11 @@ export default function ProductCard({ product, liked, onToggleLike }) {
           </span>
 
           <button
-            onClick={() => toggleCartItem(product)}
-            className={`rounded-full px-3 py-1 text-sm font-medium transition ${
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleCartItem(product);
+            }}
+            className={`rounded-full px-3 cursor-pointer py-1 text-sm font-medium transition ${
               added
                 ? "bg-white text-black"
                 : "border border-white/10 text-white/90 hover:bg-white/5"
