@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { API_URL } from "../config/api";
 import ProductCard from "../components/ProductCard";
 import { useNavigate } from "react-router-dom";
+import ProductsLoading from "../components/ProductsLoading";
 
 
 export default function Products() {
@@ -45,11 +46,7 @@ export default function Products() {
 }, []);
 
 if (loading) {
-  return (
-    <div className="min-h-screen flex items-center justify-center text-white">
-      Loading...
-    </div>
-  );
+  return <ProductsLoading />;
 }
 
   return (

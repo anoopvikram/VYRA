@@ -1,6 +1,7 @@
 import { API_URL } from "../config/api";
 import React, { useMemo, useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
+import CollectionsLoading from "../components/CollectionsLoading";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 export default function Collections() {
@@ -69,11 +70,7 @@ export default function Collections() {
   }, [products, activeCategory, sortOrder]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-white">
-        Loading products...
-      </div>
-    );
+    return <CollectionsLoading />;
   }
 
   if (error) {
