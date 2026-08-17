@@ -37,9 +37,7 @@ export default function Products() {
       setProducts(formattedProducts);
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   fetchFeaturedProducts();
