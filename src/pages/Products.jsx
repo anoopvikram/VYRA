@@ -11,7 +11,7 @@ export default function Products() {
   const [likedIds, setLikedIds] = useState(() => new Set());
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [error, setError] = useState(false);
 
   function toggleLike(id) {
     setLikedIds((prev) => {
@@ -37,13 +37,20 @@ export default function Products() {
       setProducts(formattedProducts);
     } catch (error) {
       console.error(error);
-    } 
+      setError(true);
+    } finally{
+      setLoading(false);
+    }
   };
 
   fetchFeaturedProducts();
 }, []);
 
 if (loading) {
+  return <ProductsLoading />;
+}
+
+if (error) {
   return <ProductsLoading />;
 }
 
